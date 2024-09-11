@@ -25,9 +25,9 @@ Anything found older than 30 days, it pulls it's APIGWKeyID, usagePlanID and ite
 ### Setup:
 
 - Makesure pulumi is installed via npm or brew / however you are installing packages.
-- Clone the repo. 
-- Deploy with "pulumi up --continue-on-error" because UUID is erroring out for some reason that I don't want to investigate :) but it works fine.
-- issue "npm install" in root directory. Also in /rotationLambda directory and schedulingLambda directtories so SDKv3 packages can be bundled in Lambda packages.
+- Clone the repo.
+- Issue ```npm install``` in root directory. Also in ```/rotationLambda``` directory and ```/schedulingLambda``` directories so SDKv3 packages can be bundled in Lambda packages.
+- Deploy with ```pulumi up --continue-on-error``` because UUID is erroring out for some reason that I don't want to investigate :) but it works fine.
 
 ### Usage & Demo:
 - Test like this: ```curl -H "x-api-key: <keyhere>" https://<yourAPIGWsUniqueID>.execute-api.us-east-1.amazonaws.com/prod/getcart``` Use the API KEY in the DB.
