@@ -1,0 +1,10 @@
+name: APIGateway-API-Key-Auto-Rotation
+runtime:
+  name: nodejs
+  options:
+    packagemanager: npm
+description: A minimal AWS TypeScript Pulumi program to create and rotate these keys on a schedule.
+config:
+  pulumi:tags:
+    value:
+      pulumi:template: aws-typescript
