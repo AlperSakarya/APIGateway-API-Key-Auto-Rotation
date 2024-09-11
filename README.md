@@ -15,7 +15,6 @@ Small proof of concept to show how API Gateway API Keys can be auto rotated.
 
 ### Components:
 - <b>/lambda:</b>  a function which requires API key to be executed.
-Test like this: curl -H "x-api-key: <keyhere>" https://<yourAPIGWsUniqueID>.execute-api.us-east-1.amazonaws.com/prod/getcart
 
 - <b>/schedulingLambda:</b>  the function which gets triggered by EventBridge on schedule every 30 day.
 Scans dynamoDB table for updateTime property of each item in the table.
@@ -25,5 +24,12 @@ Anything found older than 30 days, it pulls it's APIGWKeyID, usagePlanID and ite
 
 ### Setup:
 
-- Makesure pulumi is installed via npm or brew / however you are installing packages
-- Clone the repo
+- Makesure pulumi is installed via npm or brew / however you are installing packages.
+- Clone the repo. 
+- Deploy with "pulumi up --continue-on-error" because UUID is erroring out for some reason that I don't want to investigate :) but it works fine.
+- issue "npm install" in root directory. Also in /rotationLambda directory and schedulingLambda directtories so SDKv3 packages can be bundled in Lambda packages.
+
+### Usage & Demo:
+- Test like this: ```curl -H "x-api-key: <keyhere>" https://<yourAPIGWsUniqueID>.execute-api.us-east-1.amazonaws.com/prod/getcart``` Use the API KEY in the DB.
+- Trigger ```schedulingambda``` via AWS Console or CLI, you do not need to pass any test data. Even an empty execution will emulate EventBridge triggering this function.
+- You also test by passin APIGWKeyID, usagePlanID, itemID from the DB record to ```rotationLambda``` via AWS Console or CLI and watch it rotate the API KEY in the DB.
